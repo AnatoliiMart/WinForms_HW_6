@@ -2,16 +2,17 @@ namespace WinForms_HW_6
 {
     public partial class Form1 : Form
     {
-        public List<Product> _products = new();
+        private List<Product> _products = new();
         private List<Product> _salelist = new();
+
+
         private double totalPrice = 0;
+
         public Form1()
         {
             InitializeComponent();
-           
             comboBox_productsInStock.DisplayMember = "ProductName";
             listBox_selectedProducts.DisplayMember = "ProductName";
-
         }
 
         private void button_addToSelection_Click(object sender, EventArgs e)
@@ -23,6 +24,7 @@ namespace WinForms_HW_6
                 totalPrice += Convert.ToDouble(textBox_productPrice.Text);
                 textBox_totalCost.Text = totalPrice.ToString();
                 listBox_selectedProducts.Items.Add(comboBox_productsInStock.SelectedItem);
+                comboBox_productsInStock.SelectedItem = null;
             }
             else
                 MessageBox.Show("Не выбрано ни одного товара!", "Предупреждение",
@@ -46,8 +48,8 @@ namespace WinForms_HW_6
             DialogResult result = form2.ShowDialog();
             if (result == DialogResult.OK)
             {
-                _products.Add(form2.Product);
-                comboBox_productsInStock.Items.Add(form2.Product);
+                _products.Add(form2._product);
+                comboBox_productsInStock.Items.Add(form2._product);
             }
         }
     }
